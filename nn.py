@@ -10,12 +10,12 @@ class NeuralNetwork:
         self.w1, self.b1, self.w2, self.b2, self.w3, self.b3 = self.params()
         
     def params(self):
-        w1 = np.random.uniform(-1, 1, (self.hidden_size1, self.input_size))
-        w2 = np.random.uniform(-1, 1, (self.hidden_size2, self.hidden_size1))
-        w3 = np.random.uniform(-1, 1, (self.output_size, self.hidden_size2))
-        b1 = np.zeros((self.hidden_size1, 1))
-        b2 = np.zeros((self.hidden_size2, 1))
-        b3 = np.zeros((self.output_size, 1))
+        w1 = np.random.uniform(-0.5, 0.5, (40, 784))
+        w2 = np.random.uniform(-0.5, 0.5, (20, 40))
+        w3 = np.random.uniform(-0.5, 0.5, (10, 20))
+        b1 = np.zeros((40, 1))
+        b2 = np.zeros((20, 1))
+        b3 = np.zeros((10, 1))
         return w1, b1, w2, b2, w3, b3
 
     def ReLU(self, Z):
@@ -72,7 +72,7 @@ class NeuralNetwork:
             z1, a1, z2, a2, z3, a3 = self.forward_prop(X)
             dw1, db1, dw2, db2, dw3, db3 = self.backward_prop(z1, a1, z2, a2, z3, a3, Y, X)
             self.update_params(dw1, db1, dw2, db2, dw3, db3, alpha)
-            if i % 100 == 0:
+            if i % 10 == 0:
                 print(f'Iterations: {i}')
                 print('Accuracy: ', self.get_accuracy(self.predict(a3), Y))
         return self.w1, self.b1, self.w2, self.b2, self.w3, self.b3
