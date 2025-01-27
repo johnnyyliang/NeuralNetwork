@@ -1,5 +1,4 @@
 import numpy as np
-from keras.datasets import mnist
 
 class NeuralNetwork:
     def __init__(self, input_size=784, hidden_size1=40, hidden_size2=20, output_size=10):
@@ -81,17 +80,3 @@ class NeuralNetwork:
         _, _, _, _, _, a3 = self.forward_prop(test)
         prediction = self.predict(a3)
         print('Accuracy on Test Data: ', self.get_accuracy(self.predict(a3), Y))
-
-# Getting the MNIST dataset
-(train_data, train_labels), (test_data, test_labels) = mnist.load_data()
-train_data = np.reshape(train_data, (60000, 784)).T
-test_data = np.reshape(test_data, (10000, 784)).T
-train_data = train_data.astype('float32')
-test_data = test_data.astype('float32')
-train_data /= 255
-test_data /= 255
-
-# Initialize the neural network
-nn = NeuralNetwork()
-nn.gradient_descent(train_data, train_labels, 500, 0.1)
-nn.predict_test(test_data, test_labels)
